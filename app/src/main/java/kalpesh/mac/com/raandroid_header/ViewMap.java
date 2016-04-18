@@ -64,7 +64,7 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback, Go
                     map_markers = intent.getParcelableArrayListExtra("map_markers");
                     for (int i=0; i<map_markers.size(); i++) {
                         if (map_markers.get(i).isInfoCorrect() == 1)
-                            my_map.addMarker(new MarkerOptions().position(new LatLng(map_markers.get(i).getLatitude(),map_markers.get(i).getLongitude())).title(map_markers.get(i).getName()).snippet(map_markers.get(i).getAddress()).snippet(map_markers.get(i).getPostcode()));
+                            my_map.addMarker(new MarkerOptions().position(new LatLng(map_markers.get(i).getLatitude(),map_markers.get(i).getLongitude())).title(map_markers.get(i).getName()).snippet(map_markers.get(i).getAddress()));
                     }
                 }
             }
