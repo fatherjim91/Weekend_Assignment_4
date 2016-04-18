@@ -36,8 +36,12 @@ public class Adapter extends ArrayAdapter<Restaurant> {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.row, parent, false);
         Restaurant res = flowerList.get(position);
-       TextView tv = (TextView) view.findViewById(R.id.title);
-        tv.setText(res.getName());
+       TextView tvTitle = (TextView) view.findViewById(R.id.title);
+        TextView tvAddress = (TextView)view.findViewById(R.id.address);
+        TextView tvPostcode = (TextView)view.findViewById(R.id.postcode);
+        tvTitle.setText(res.getName());
+        tvAddress.setText(res.getAddress());
+        tvPostcode.setText(res.getPostcode());
 
         ImageView img = (ImageView) view.findViewById(R.id.thumbnail);
         Picasso.with(getContext())
