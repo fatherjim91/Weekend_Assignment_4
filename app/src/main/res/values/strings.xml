@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RaAndroid_Header</string>
+
+    <string name="main_title">Just-Eat Restaurants</string>
+
+    <string name="map_title">Restaurants on GoogleMaps</string>
+
+    <string name="action_map">View on Map</string>
+</resources>
