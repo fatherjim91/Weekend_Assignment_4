@@ -63,11 +63,13 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback, Go
                 if (intent.getAction().equals(CoordinatesIntentService.SUCCESSFUL_RESULT)) {
                     map_markers = intent.getParcelableArrayListExtra("map_markers");
                     for (int i=0; i<map_markers.size(); i++) {
+                        if (map_markers.get(i).isInfoCorrect() == 1)
                             my_map.addMarker(new MarkerOptions().position(new LatLng(map_markers.get(i).getLatitude(),map_markers.get(i).getLongitude())).title(map_markers.get(i).getName()).snippet(map_markers.get(i).getAddress()).snippet(map_markers.get(i).getPostcode()));
                     }
                 }
             }
         };
+
         registerReceiver(bcast_receiver, intent_filter);
 
         // Build GoogleAPI
@@ -76,12 +78,12 @@ public class ViewMap extends AppCompatActivity implements OnMapReadyCallback, Go
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-//        google_api_client.connect();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         my_map = googleMap;
+        my_map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.50, -0.12), 10));
 
         Intent start_service = new Intent(this, CoordinatesIntentService.class);
         start_service.putParcelableArrayListExtra("markers", getIntent().getParcelableArrayListExtra("markers"));

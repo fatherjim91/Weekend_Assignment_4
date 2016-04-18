@@ -11,23 +11,23 @@ public class Marker implements Parcelable {
     private String name;
     private String address;
     private String postcode;
-    private String city;
     private double latitude, longitude;
+    private int correct_info;
 
-    public Marker(String nm, String add, String pc, String ci) {
+    public Marker(String nm, String add, String pc) {
         this.name = nm;
         this.address = add;
         this.postcode = pc;
-        this.city = ci;
+        correct_info = 1;
     }
 
     protected Marker(Parcel in) {
         name = in.readString();
         address = in.readString();
         postcode = in.readString();
-        city = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        correct_info = in.readInt();
     }
 
     public String getName() {
@@ -41,8 +41,6 @@ public class Marker implements Parcelable {
     public String getPostcode() {
         return postcode;
     }
-
-    public String getCity() { return city; }
 
     public void setLatitude(double lat) {
         latitude = lat;
@@ -58,6 +56,14 @@ public class Marker implements Parcelable {
 
     public double getLongitude(){
         return longitude;
+    }
+
+    public void setInfoIncorrect() {
+        correct_info = 0;
+    }
+
+    public int isInfoCorrect() {
+        return correct_info;
     }
 
     public static final Creator<Marker> CREATOR = new Creator<Marker>() {
@@ -82,8 +88,8 @@ public class Marker implements Parcelable {
         dest.writeString(name);
         dest.writeString(address);
         dest.writeString(postcode);
-        dest.writeString(city);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeInt(correct_info);
     }
 }

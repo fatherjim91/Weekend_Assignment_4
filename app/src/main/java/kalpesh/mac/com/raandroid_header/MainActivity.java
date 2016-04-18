@@ -1,6 +1,5 @@
 package kalpesh.mac.com.raandroid_header;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -117,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         mRestaurantList = example.getRestaurants();
                         // Adds all restaurant marker info to be passed into the next activity
                         for (int i=0; i< mRestaurantList.size(); i++) {
-                            markers.add(new Marker(mRestaurantList.get(i).getName(),mRestaurantList.get(i).getAddress(),mRestaurantList.get(i).getPostcode(), mRestaurantList.get(i).getCity()));
+                            markers.add(new Marker(mRestaurantList.get(i).getName(),mRestaurantList.get(i).getAddress(),mRestaurantList.get(i).getPostcode()));
                         }
                         System.out.println("Got: " + " (" + Thread.currentThread().getName() + ")");
                         Adapter adapt = new Adapter(getApplicationContext(), R.layout.row, mRestaurantList);
@@ -140,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(map);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

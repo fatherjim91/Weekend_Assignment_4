@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,6 @@ public class CoordinatesIntentService extends IntentService {
 
     public CoordinatesIntentService() {
         super(TAG);
-
     }
 
     @Override
@@ -34,34 +35,28 @@ public class CoordinatesIntentService extends IntentService {
             List<Address> list = null;
 
             for (int i=0; i<map_markers.size(); i++) {
-
                 try {
-                    list = geocoder.getFromLocationName(map_markers.get(i).getPostcode(), 5);
+                    list = geocoder.getFromLocationName(map_markers.get(i).getPostcode(), 1);
+                    while (list.size() == 0) {
+                        list = geocoder.getFromLocationName(map_markers.get(i).getPostcode(), 1);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
                 Address address = list.get(0);
-                map_markers.get(i).setLatitude(address.getLatitude());
-                map_markers.get(i).setLongitude(address.getLongitude());
-
-//                Address address = null;
-//                for (int j=0; j<list.size(); j++) {
-//                    address = list.get(j);
-//                    if (address.getAddressLine(0).equals(map_markers.get(i).getAddress())) {
-//                        map_markers.get(i).setLatitude(address.getLatitude());
-//                        map_markers.get(i).setLongitude(address.getLongitude());
-//                    }
-//                }
+                if (address != null) {
+                    map_markers.get(i).setLatitude(address.getLatitude());
+                    map_markers.get(i).setLongitude(address.getLongitude());
+                } else {
+                    map_markers.get(i).setInfoIncorrect();
+                }
             }
 
         }
-
         Intent send_results = new Intent();
         send_results.setAction(CoordinatesIntentService.SUCCESSFUL_RESULT);
         send_results.putExtra("map_markers", map_markers);
         sendBroadcast(send_results);
-
     }
 
 }
